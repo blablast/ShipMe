@@ -1,0 +1,8 @@
+sqlalchemy~=2.0.38
+faker~=36.2.2
+alembic~=1.15.1
+pandas~=2.2.3
+streamlit~=1.43.0
+plotly~=6.0.0
+scikit-learn~=1.6.1
+imbalanced-learn~=0.13.0

@@ -1,0 +1,27 @@
+# file: src/pages/__init__.py
+
+# Import analysis pages
+from .avg_delivery_time_by_city import get_page_content as avg_delivery_time_content
+from .most_frequent_drivers import get_page_content as most_frequent_drivers_content
+from .fuel_costs_per_vehicle_usage import get_page_content as fuel_costs_content
+from .total_weight_per_warehouse import get_page_content as total_weight_content
+from .most_expensive_shipments import get_page_content as most_expensive_content
+from .incidents_by_type import get_page_content as incidents_by_type_content
+from .delivery_time_trends_by_month import get_page_content as delivery_time_trends_content
+from .driver_ranking_by_delivery_time import get_page_content as driver_ranking_content
+from .monthly_delivery_time_changes import get_page_content as monthly_delivery_changes_content
+from .incidents_distribution_over_time import get_page_content as incidents_distribution_content
+from .delivery_time_percentiles_by_vehicle_type import get_page_content as delivery_percentiles_content
+from .avg_fuel_cost_by_road_type_and_month import get_page_content as avg_fuel_cost_content
+from .most_risky_routes_by_incidents import get_page_content as most_risky_routes_content
+from .driver_efficiency_trends import get_page_content as driver_efficiency_content
+from .geographic_distribution_of_warehouses import get_page_content as geo_warehouses_content
+from .geographic_distribution_of_routes import get_page_content as geo_routes_content
+from .route_distances import get_page_content as route_distances_content
+from .schema_fact_shipments import get_page_content as schema_fact_shipments_content
+from .schema_fact_vehicle_usage import get_page_content as schema_fact_vehicle_usage_content
+from .schema_fact_warehouse_activity import get_page_content as schema_fact_warehouse_activity_content
+
+# Import readme page
+from .readme_page import get_page_content as readme_content
+

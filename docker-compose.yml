@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgis/postgis:14-3.4  # Używamy obrazu z PostGIS
+    environment:
+      POSTGRES_USER: ship_me_user
+      POSTGRES_PASSWORD: ship_me_pass
+      POSTGRES_DB: ship_me_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
