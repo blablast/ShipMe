@@ -25,3 +25,4 @@ from .schema_fact_warehouse_activity import get_page_content as schema_fact_ware
 # Import readme page
 from .readme_page import get_page_content as readme_content
 
+from .database_stats import get_page_content as database_stats_content

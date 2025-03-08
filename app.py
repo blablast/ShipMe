@@ -65,6 +65,10 @@ grouped_analyses = {"📅 Analizy czasowe" : sorted([
          "content_func" : schema_fact_vehicle_usage_content},
         {"key" : "schema_fact_warehouse_activity", "title" : "Schemat: Fact Warehouse Activity",
          "content_func" : schema_fact_warehouse_activity_content}, ], key = lambda x : x["title"]),
+
+    "📊 Statystyki": sorted([
+            {"key": "database_stats", "title": "Statystyki bazy danych", "content_func": database_stats_content},
+        ], key=lambda x: x["title"])
 }
 
 st.markdown("""

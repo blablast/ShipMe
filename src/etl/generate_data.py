@@ -45,7 +45,7 @@ def generate_dim_data():
     fuels = []
 
     # Generate 100 customers
-    for _ in range(100):
+    for _ in range(200):
         city = random.choice(list(POLISH_CITIES.keys()))
         customer = DimCustomer(
             first_name=truncate_string(fake.first_name(), 50),
@@ -58,7 +58,7 @@ def generate_dim_data():
         customers.append(customer)
 
     # Generate 50 routes
-    for _ in range(50):
+    for _ in range(100):
         start_city = random.choice(list(POLISH_CITIES.keys()))
         end_city = random.choice(list(POLISH_CITIES.keys()))
         while start_city == end_city:  # Ensure start and end are different
@@ -77,7 +77,7 @@ def generate_dim_data():
         routes.append(route)
 
     # Generate 20 vehicles
-    for _ in range(20):
+    for _ in range(50):
         vehicle = DimVehicle(
             registration_number=truncate_string(fake.license_plate(), 20),
             vehicle_type=random.choice(["truck", "van", "car"]),
@@ -88,7 +88,7 @@ def generate_dim_data():
         vehicles.append(vehicle)
 
     # Generate 30 drivers
-    for _ in range(30):
+    for _ in range(60):
         driver = DimDriver(
             first_name=truncate_string(fake.first_name(), 50),
             last_name=truncate_string(fake.last_name(), 50),
@@ -112,7 +112,7 @@ def generate_dim_data():
         warehouses.append(warehouse)
 
     # Generate 50 products
-    for _ in range(50):
+    for _ in range(200):
         product = DimProduct(
             product_name=truncate_string(fake.word(), 50),
             category=truncate_string(fake.word(), 50),
@@ -123,7 +123,7 @@ def generate_dim_data():
 
     # Generate dates for two years (365 days)
     start_date = datetime(2023, 1, 1)
-    for i in range(365*2):
+    for i in range(365*3):
         date = DimDate(
             full_date=start_date + timedelta(days=i),
             day=(start_date + timedelta(days=i)).day,
@@ -162,7 +162,7 @@ def generate_fact_data(dim_data):
     warehouse_activities = []
     incidents = []
 
-    for _ in range(200):
+    for _ in range(2000):
         shipment = FactShipments(
             customer_id=random.choice(dim_data["customers"]).customer_id,
             route_id=random.choice(dim_data["routes"]).route_id,
@@ -176,7 +176,7 @@ def generate_fact_data(dim_data):
         )
         shipments.append(shipment)
 
-    for _ in range(50):
+    for _ in range(200):
         incident = DimIncident(
             shipment_id=random.choice(shipments).shipment_id,
             vehicle_id=random.choice(dim_data["vehicles"]).vehicle_id,
@@ -187,7 +187,7 @@ def generate_fact_data(dim_data):
         )
         incidents.append(incident)
 
-    for _ in range(150):
+    for _ in range(1500):
         usage = FactVehicleUsage(
             vehicle_id=random.choice(dim_data["vehicles"]).vehicle_id,
             driver_id=random.choice(dim_data["drivers"]).driver_id,
@@ -200,7 +200,7 @@ def generate_fact_data(dim_data):
         )
         vehicle_usages.append(usage)
 
-    for _ in range(200):
+    for _ in range(2000):
         activity = FactWarehouseActivity(
             product_id=random.choice(dim_data["products"]).product_id,
             warehouse_id=random.choice(dim_data["warehouses"]).warehouse_id,
