@@ -12,7 +12,7 @@ def get_page_content() :
     - Kolumny `distance_km`, `fuel_consumption`, `maintenance_cost` przechowują dane ilościowe do analizy.
     """
     schema_iframe = """
-    <iframe width="1000" height="500" src='https://dbdiagram.io/e/67c96837263d6cf9a06d0ae1/67c96d32263d6cf9a06dde34'></iframe>
+    <iframe width="1000" height="700" src='https://dbdiagram.io/e/67c96837263d6cf9a06d0ae1/67c96d32263d6cf9a06dde34'></iframe>
     """
 
     return {"title" : title, "purpose" : purpose, "query_code" : "", "filters" : {}, "data" : None, "plot" : None,

@@ -147,19 +147,6 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['warehouse_id'], ['dim_warehouse.warehouse_id'], ),
     sa.PrimaryKeyConstraint('activity_id')
     )
-    op.create_table('dim_incident',
-    sa.Column('incident_id', sa.Integer(), autoincrement=True, nullable=False),
-    sa.Column('shipment_id', sa.Integer(), nullable=True),
-    sa.Column('vehicle_id', sa.Integer(), nullable=True),
-    sa.Column('date_id', sa.Integer(), nullable=True),
-    sa.Column('incident_type', sa.String(length=50), nullable=True),
-    sa.Column('description', sa.String(length=200), nullable=True),
-    sa.Column('cost_impact', sa.Float(), nullable=True),
-    sa.ForeignKeyConstraint(['date_id'], ['dim_date.date_id'], ),
-    sa.ForeignKeyConstraint(['shipment_id'], ['fact_shipments.shipment_id'], ),
-    sa.ForeignKeyConstraint(['vehicle_id'], ['dim_vehicle.vehicle_id'], ),
-    sa.PrimaryKeyConstraint('incident_id')
-    )
     #op.drop_table('spatial_ref_sys')
     # ### end Alembic commands ###
 

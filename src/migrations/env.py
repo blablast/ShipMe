@@ -26,11 +26,6 @@ if config.config_file_name is not None:
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
 from src.models.base import Base
-from src.models import (
-    DimCustomer, DimRoute, DimVehicle, DimDriver, DimWarehouse, DimProduct, DimDate,
-    DimIncident, DimFuel,
-    FactShipments, FactVehicleUsage, FactWarehouseActivity
-)
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

@@ -26,8 +26,6 @@ grouped_analyses = {"📅 Analizy czasowe" : sorted([
      "content_func" : delivery_time_trends_content},
     {"key" : "driver_efficiency", "title" : "Trendy efektywności kierowców",
      "content_func" : driver_efficiency_content},
-    {"key" : "incidents_distribution", "title" : "Rozkład incydentów w czasie",
-     "content_func" : incidents_distribution_content},
     {"key" : "monthly_delivery_changes", "title" : "Zmiany czasów dostaw w miesiącach",
      "content_func" : monthly_delivery_changes_content}, ], key = lambda x : x["title"]),
 
@@ -41,17 +39,11 @@ grouped_analyses = {"📅 Analizy czasowe" : sorted([
         {"key" : "most_expensive", "title" : "Najdroższe przesyłki", "content_func" : most_expensive_content},
         {"key" : "most_frequent_drivers", "title" : "Najczęściej używani kierowcy",
          "content_func" : most_frequent_drivers_content},
-        {"key" : "most_risky_routes", "title" : "Najbardziej ryzykowne trasy według incydentów",
-         "content_func" : most_risky_routes_content},
         {"key" : "route_distances", "title" : "Odległości tras (geograficzne)",
          "content_func" : route_distances_content}, ], key = lambda x : x["title"]),
 
     "🏬 Analizy magazynowe" : sorted(
         [{"key" : "total_weight", "title" : "Całkowita waga według magazynu", "content_func" : total_weight_content}, ],
-        key = lambda x : x["title"]),
-
-    "⚠️ Analizy incydentów" : sorted([
-        {"key" : "incidents_by_type", "title" : "Incydenty według typu", "content_func" : incidents_by_type_content}, ],
         key = lambda x : x["title"]),
 
     "🗺️ Analizy geograficzne" : sorted(

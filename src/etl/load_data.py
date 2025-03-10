@@ -48,20 +48,6 @@ def load_data() :
         session.add(shipment)
     session.commit()  # Commit shipments to ensure shipment_id is generated
 
-    # Update incidents with correct shipment_id after commit
-    incidents = []
-    for _ in range(50) :  # Generate 50 incidents
-        shipment = random.choice(shipments)
-        incident = DimIncident(shipment_id = shipment.shipment_id,
-            vehicle_id = random.choice(dim_data["vehicles"]).vehicle_id,
-            date_id = random.choice(dim_data["dates"]).date_id,
-            incident_type = truncate_string(random.choice(["accident", "delay", "damage"]), 50),
-            description = truncate_string(fake.sentence(), 200), cost_impact = round(random.uniform(50, 1000), 2))
-        incidents.append(incident)
-
-    # Load incidents
-    for incident in incidents :
-        session.add(incident)
 
     # Load remaining fact data
     for usage in fact_data["vehicle_usages"] :

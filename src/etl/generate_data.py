@@ -4,8 +4,7 @@ from faker import Faker
 import random
 from datetime import datetime, timedelta
 from src.models import (
-    DimCustomer, DimRoute, DimVehicle, DimDriver, DimWarehouse, DimProduct, DimDate,
-    DimIncident, DimFuel,
+    DimCustomer, DimRoute, DimVehicle, DimDriver, DimWarehouse, DimProduct, DimDate, DimFuel,
     FactShipments, FactVehicleUsage, FactWarehouseActivity
 )
 
@@ -41,7 +40,6 @@ def generate_dim_data():
     warehouses = []
     products = []
     dates = []
-    incidents = []
     fuels = []
 
     # Generate 100 customers
@@ -152,15 +150,13 @@ def generate_dim_data():
         "warehouses": warehouses,
         "products": products,
         "dates": dates,
-        "fuels": fuels,
-        "incidents": incidents
+        "fuels": fuels
     }
 
 def generate_fact_data(dim_data):
     shipments = []
     vehicle_usages = []
     warehouse_activities = []
-    incidents = []
 
     for _ in range(2000):
         shipment = FactShipments(
@@ -175,17 +171,6 @@ def generate_fact_data(dim_data):
             delivery_time=round(random.uniform(1, 72), 2)
         )
         shipments.append(shipment)
-
-    for _ in range(200):
-        incident = DimIncident(
-            shipment_id=random.choice(shipments).shipment_id,
-            vehicle_id=random.choice(dim_data["vehicles"]).vehicle_id,
-            date_id=random.choice(dim_data["dates"]).date_id,
-            incident_type=truncate_string(random.choice(["accident", "delay", "damage"]), 50),
-            description=truncate_string(fake.sentence(), 200),
-            cost_impact=round(random.uniform(50, 1000), 2)
-        )
-        incidents.append(incident)
 
     for _ in range(1500):
         usage = FactVehicleUsage(
@@ -214,8 +199,7 @@ def generate_fact_data(dim_data):
     return {
         "shipments": shipments,
         "vehicle_usages": vehicle_usages,
-        "warehouse_activities": warehouse_activities,
-        "incidents": incidents
+        "warehouse_activities": warehouse_activities
     }
 
 if __name__ == "__main__":

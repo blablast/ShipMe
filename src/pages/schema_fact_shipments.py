@@ -12,7 +12,7 @@ def get_page_content() :
     - Kolumny `weight`, `shipping_cost`, `delivery_time` przechowują dane ilościowe do analizy.
     """
     schema_iframe = """
-    <iframe width="1000" height="500" src='https://dbdiagram.io/e/67c94cc6263d6cf9a068ffd0/67c96b18263d6cf9a06d8688'></iframe>
+    <iframe width="1000" height="700" src='https://dbdiagram.io/e/67c94cc6263d6cf9a068ffd0/67c96b18263d6cf9a06d8688'></iframe>
     """
 
     return {"title" : title, "purpose" : purpose, "query_code" : "",  # Brak kodu SQL w schematach

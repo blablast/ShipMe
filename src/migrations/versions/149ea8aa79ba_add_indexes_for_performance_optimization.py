@@ -27,11 +27,6 @@ def upgrade():
     op.create_index('idx_fact_shipments_vehicle_id', 'fact_shipments', ['vehicle_id'], unique=False)
     op.create_index('idx_fact_shipments_shipping_cost', 'fact_shipments', ['shipping_cost'], unique=False)
 
-    # Indeksy dla dim_incident
-    op.create_index('idx_dim_incident_shipment_id', 'dim_incident', ['shipment_id'], unique=False)
-    op.create_index('idx_dim_incident_date_id', 'dim_incident', ['date_id'], unique=False)
-    op.create_index('idx_dim_incident_incident_type', 'dim_incident', ['incident_type'], unique=False)
-
     # Indeksy dla fact_vehicle_usage
     op.create_index('idx_fact_vehicle_usage_vehicle_id', 'fact_vehicle_usage', ['vehicle_id'], unique=False)
     op.create_index('idx_fact_vehicle_usage_route_id', 'fact_vehicle_usage', ['route_id'], unique=False)
@@ -60,9 +55,6 @@ def downgrade():
     op.drop_index('idx_fact_vehicle_usage_fuel_id', table_name='fact_vehicle_usage')
     op.drop_index('idx_fact_vehicle_usage_route_id', table_name='fact_vehicle_usage')
     op.drop_index('idx_fact_vehicle_usage_vehicle_id', table_name='fact_vehicle_usage')
-    op.drop_index('idx_dim_incident_incident_type', table_name='dim_incident')
-    op.drop_index('idx_dim_incident_date_id', table_name='dim_incident')
-    op.drop_index('idx_dim_incident_shipment_id', table_name='dim_incident')
     op.drop_index('idx_fact_shipments_shipping_cost', table_name='fact_shipments')
     op.drop_index('idx_fact_shipments_vehicle_id', table_name='fact_shipments')
     op.drop_index('idx_fact_shipments_warehouse_id', table_name='fact_shipments')

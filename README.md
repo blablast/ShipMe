@@ -140,7 +140,6 @@ Tabele wymiarów:
 - `dim_warehouse`: Magazyny.
 - `dim_product`: Produkty w przesyłkach.
 - `dim_date`: Wymiar czasowy.
-- `dim_incident`: Incydenty na trasie.
 - `dim_fuel`: Dane o paliwie.
 
 Szczegółowy opis każdej tabeli znajdziesz w plikach w katalogu `src/models/`.
@@ -150,7 +149,6 @@ Aplikacja Streamlit (`app.py`) umożliwia interaktywną analizę danych w nastę
 - **Analizy czasowe**: trendy w czasie (np. czasy dostaw, efektywność kierowców).
 - **Analizy transportowe**: dane związane z transportem (np. koszty paliwa, ranking kierowców).
 - **Analizy magazynowe**: informacje o magazynach (np. całkowita waga).
-- **Analizy incydentów**: statystyki incydentów (np. typy incydentów).
 - **Analizy geograficzne**: wizualizacje przestrzenne (np. rozkład tras).
 - **Schematy**: schematy tabel faktów w formie diagramów.
 

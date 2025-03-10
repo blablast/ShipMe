@@ -12,7 +12,7 @@ def get_page_content() :
     - Kolumny `stock_in`, `stock_out`, `storage_time` przechowują dane ilościowe do analizy.
     """
     schema_iframe = """
-    <iframe width="1000" height="500" src='https://dbdiagram.io/e/67c96844263d6cf9a06d0c9c/67c96d5e263d6cf9a06de4e1'></iframe>
+    <iframe width="1000" height="700" src='https://dbdiagram.io/e/67c96844263d6cf9a06d0c9c/67c96d5e263d6cf9a06de4e1'></iframe>
     """
 
     return {"title" : title, "purpose" : purpose, "query_code" : "", "filters" : {}, "data" : None, "plot" : None,

@@ -95,19 +95,6 @@ class LogisticsQueries:
         """
         return self.execute_query(query), query
 
-    def incidents_by_type(self, top: int = 5) -> (pd.DataFrame, str):
-        query = f"""
-        SELECT
-            di.incident_type,
-            COUNT(di.incident_id) as incident_count,
-            SUM(di.cost_impact) as total_cost_impact
-        FROM dim_incident di
-        GROUP BY di.incident_type
-        ORDER BY total_cost_impact DESC
-        LIMIT {top};
-        """
-        return self.execute_query(query), query
-
     def delivery_time_trends_by_month(self) -> (pd.DataFrame, str):
         query = """
         SELECT
@@ -160,36 +147,6 @@ class LogisticsQueries:
         """
         return self.execute_query(query), query
 
-    def incidents_distribution_over_time(self) -> (pd.DataFrame, str):
-        query = """
-        WITH date_series AS (
-            SELECT
-                generate_series(
-                    (SELECT MIN(dd.full_date) FROM dim_date dd),
-                    (SELECT MAX(dd.full_date) FROM dim_date dd),
-                    interval '1 month'
-                ) as incident_date
-        ),
-        incident_counts AS (
-            SELECT
-                EXTRACT(MONTH FROM dd.full_date) as incident_month,
-                EXTRACT(YEAR FROM dd.full_date) as incident_year,
-                COUNT(di.incident_id) as incident_count
-            FROM dim_incident di
-            JOIN dim_date dd ON di.date_id = dd.date_id
-            GROUP BY EXTRACT(MONTH FROM dd.full_date), EXTRACT(YEAR FROM dd.full_date)
-        )
-        SELECT
-            EXTRACT(MONTH FROM ds.incident_date) as incident_month,
-            EXTRACT(YEAR FROM ds.incident_date) as incident_year,
-            COALESCE(ic.incident_count, 0) as incident_count
-        FROM date_series ds
-        LEFT JOIN incident_counts ic
-            ON EXTRACT(MONTH FROM ds.incident_date) = ic.incident_month
-            AND EXTRACT(YEAR FROM ds.incident_date) = ic.incident_year
-        ORDER BY incident_year, incident_month;
-        """
-        return self.execute_query(query), query
 
     def delivery_time_percentiles_by_vehicle_type(self) -> (pd.DataFrame, str):
         """
@@ -229,25 +186,6 @@ class LogisticsQueries:
         """
         return self.execute_query(query), query
 
-    def most_risky_routes_by_incidents(self, top: int = 5) -> (pd.DataFrame, str):
-        """
-        Identify routes with the highest number of incidents and their cost impact.
-        Returns a DataFrame with columns: start_location, end_location, incident_count, total_cost_impact.
-        """
-        query = f"""
-        SELECT
-            dr.start_location,
-            dr.end_location,
-            COUNT(di.incident_id) as incident_count,
-            SUM(di.cost_impact) as total_cost_impact
-        FROM dim_route dr
-        JOIN fact_shipments fs ON dr.route_id = fs.route_id
-        JOIN dim_incident di ON fs.shipment_id = di.shipment_id
-        GROUP BY dr.route_id, dr.start_location, dr.end_location
-        ORDER BY incident_count DESC, total_cost_impact DESC
-        LIMIT {top};
-        """
-        return self.execute_query(query), query
 
     def driver_efficiency_trends(self, top: int = 5) -> (pd.DataFrame, str):
         """
@@ -332,68 +270,3 @@ class LogisticsQueries:
         LIMIT {top};
         """
         return self.execute_query(query), query
-
-def run_all_queries():
-    queries = LogisticsQueries()
-    results = {}
-
-    print("\nQuery 1: Average delivery time by customer's city")
-    results['avg_delivery_time_by_city'] = queries.avg_delivery_time_by_city()
-    print(results['avg_delivery_time_by_city'])
-
-    print("\nQuery 2: Most frequently used drivers (by number of shipments)")
-    results['most_frequent_drivers'] = queries.most_frequent_drivers()
-    print(results['most_frequent_drivers'])
-
-    print("\nQuery 3: Fuel costs per vehicle usage")
-    results['fuel_costs_per_vehicle_usage'] = queries.fuel_costs_per_vehicle_usage()
-    print(results['fuel_costs_per_vehicle_usage'])
-
-    print("\nQuery 4: Total weight shipped per warehouse")
-    results['total_weight_per_warehouse'] = queries.total_weight_per_warehouse()
-    print(results['total_weight_per_warehouse'])
-
-    print("\nQuery 5: Most expensive shipments by shipping cost")
-    results['most_expensive_shipments'] = queries.most_expensive_shipments()
-    print(results['most_expensive_shipments'])
-
-    print("\nQuery 6: Incidents by type and their total cost impact")
-    results['incidents_by_type'] = queries.incidents_by_type()
-    print(results['incidents_by_type'])
-
-    print("\nQuery 7: Delivery time trends by month")
-    results['delivery_time_trends_by_month'] = queries.delivery_time_trends_by_month()
-    print(results['delivery_time_trends_by_month'])
-
-    print("\nQuery 8: Driver ranking by average delivery time")
-    results['driver_ranking_by_delivery_time'] = queries.driver_ranking_by_delivery_time()
-    print(results['driver_ranking_by_delivery_time'])
-
-    print("\nQuery 9: Monthly delivery time changes")
-    results['monthly_delivery_time_changes'] = queries.monthly_delivery_time_changes()
-    print(results['monthly_delivery_time_changes'])
-
-    print("\nQuery 10: Incidents distribution over time")
-    results['incidents_distribution_over_time'] = queries.incidents_distribution_over_time()
-    print(results['incidents_distribution_over_time'])
-
-    print("\nQuery 11: Delivery time percentiles by vehicle type")
-    results['delivery_time_percentiles_by_vehicle_type'] = queries.delivery_time_percentiles_by_vehicle_type()
-    print(results['delivery_time_percentiles_by_vehicle_type'])
-
-    print("\nQuery 12: Average fuel cost by road type and month")
-    results['avg_fuel_cost_by_road_type_and_month'] = queries.avg_fuel_cost_by_road_type_and_month()
-    print(results['avg_fuel_cost_by_road_type_and_month'])
-
-    print("\nQuery 13: Most risky routes by incidents")
-    results['most_risky_routes_by_incidents'] = queries.most_risky_routes_by_incidents()
-    print(results['most_risky_routes_by_incidents'])
-
-    print("\nQuery 14: Driver efficiency trends")
-    results['driver_efficiency_trends'] = queries.driver_efficiency_trends()
-    print(results['driver_efficiency_trends'])
-
-    return results
-
-if __name__ == "__main__":
-    run_all_queries()
